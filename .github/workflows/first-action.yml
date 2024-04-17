@@ -1,5 +1,5 @@
 name: First Workflow
-on: workflow_dispatch
+on: [workflow_dispatch, push] #multiple triggers
 jobs:
   first-job:
     runs-on: ubuntu-latest
@@ -8,3 +8,11 @@ jobs:
         run: echo "Hellow"
       - name: Print goodbye
         run: echo "Done - bye!"
+  second-job:
+    needs: first-job #jobs to work sequentially rather than paralel in default
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print greeting
+        run: echo "Hellow again"
+      - name: Print goodbye
+        run: echo "Done again - bye!"
